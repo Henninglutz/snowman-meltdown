@@ -1,9 +1,10 @@
 import random
+import stages
 
 # List of secret words
-WORDS = ["python", "git", "github", "snowman", "meltdown"]
-mistake =  0
-word_progress = ""
+WORDS = ["python", "git", "github", "snowman", "meltdown","masterschool"]
+mistakes = 0
+
 
 def get_random_word():
     """Selects a random word from the list."""
@@ -11,32 +12,39 @@ def get_random_word():
 
 
 def play_game():
+    global mistakes
+    global momentum
     secret_word = get_random_word()
+    guessed_letters = []
     print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)  # for testing, later remove this line
-    display_game_state()
-
-    for guess in secret_word:
-        if guess in secret_word:
-            #for char in secret_word:
-            print(f"_"* len(secret_word))
+    print(f"Secret word selected: " + "_" * len(secret_word))
+    while True:
+        guess = input("Guess a letter: ").lower()
+        print("You guessed:", guess)
+        if guess not in secret_word:
+            mistakes += 1
+            print(stages.STAGES[mistakes - 1])
         else:
-            mistake += 1
+            print(f"_" * len(secret_word))
 
-    """
-    Loop Print  "_" for every letter 
-    (neue Variable mit den bereits geratenen Buchstaben = neuer String) 
-    guess print für neuen String in der richtigen Stelle 
-    (if guess in secret word guess ???!index im string? replace index mit guess:
-    else: print "_")
-    Erst Index() = secret_word.index(guess)
-    Variabele updaten = dann replace()
+        if guess not in guessed_letters:
+            guessed_letters.append(guess)
+        momentum = ""
+        for char in secret_word:
+            if char in guessed_letters:
+                momentum += char + " "
+            else:
+                momentum += "_"
+        print(momentum)
+        # Game won / lost: if... = break
+        if "_" not in momentum:
+            print("Kudos! You won!")
+            break
+        if mistakes >= len(stages.STAGES):
+            print("GAME OVER")
+            print("*********")
+            break
 
-    # For now, simply prompt the user once:
-    guess = input("Guess a letter: ").lower()
-    print("You guessed:", guess)
-    
-"""
 
 if __name__ == "__main__":
     play_game()

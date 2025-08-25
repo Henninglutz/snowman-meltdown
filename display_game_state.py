@@ -42,7 +42,6 @@ def display_game_state(mistakes, secret_word, guessed_letters):
     print("Word: ", display_word)
     print("\n")
 
-"""
 def play_game():
     secret_word = get_random_word()
     guessed_letters = []
@@ -55,4 +54,3 @@ def play_game():
     # Prompt user for one guess (logic to be enhanced later)
     guess = input("Guess a letter: ").lower()
     print("You guessed:", guess)
-"""
