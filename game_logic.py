@@ -23,7 +23,7 @@ def play_game():
         print("You guessed:", guess)
         if guess not in secret_word:
             mistakes += 1
-            print(stages.STAGES[mistakes - 1])
+            print(ascii_art.STAGES[mistakes - 1])
         else:
             print(f"_" * len(secret_word))
 
@@ -40,9 +40,14 @@ def play_game():
         if "_" not in momentum:
             print("Kudos! You won!")
             break
-        if mistakes >= len(stages.STAGES):
+        if mistakes >= len(ascii_art.STAGES):
             print("GAME OVER")
             print("*********")
+            print("do you want to play again? y/n?")
+            restart = input("")
+            if restart.lower() == "y":
+                mistakes = 0
+                play_game()
             break
 
 
